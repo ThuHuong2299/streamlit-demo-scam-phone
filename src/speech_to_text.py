@@ -254,8 +254,11 @@ class SpeechToText:
         Yields:
             Tuple (chunk_index, start_time, end_time, transcript_text)
         """
-        if not PYDUB_AVAILABLE:
-            raise RuntimeError("Cần cài pydub để dùng streaming mode: pip install pydub")
+        # Runtime import — tránh lỗi PYDUB_AVAILABLE=False do Python 3.13 module-level caching
+        try:
+            from pydub import AudioSegment as _AudioSegment
+        except Exception as e:
+            raise RuntimeError(f"Cần cài pydub để dùng streaming mode: pip install pydub ({e})")
         
         # Detect format from filename
         ext = Path(filename).suffix.lower().lstrip(".")
@@ -263,7 +266,7 @@ class SpeechToText:
             ext = "mp4"  # pydub uses mp4 for m4a
         
         # Load audio from bytes
-        audio = AudioSegment.from_file(io.BytesIO(audio_bytes), format=ext)
+        audio = _AudioSegment.from_file(io.BytesIO(audio_bytes), format=ext)
         total_duration = len(audio) / 1000
         chunk_ms = chunk_duration * 1000
         
@@ -300,15 +303,15 @@ class SpeechToText:
     
     def get_audio_duration(self, audio_bytes: bytes, filename: str = "audio.mp3") -> float:
         """Lấy tổng thời lượng audio (giây)."""
-        if not PYDUB_AVAILABLE:
+        try:
+            from pydub import AudioSegment as _AudioSegment
+            ext = Path(filename).suffix.lower().lstrip(".")
+            if ext == "m4a":
+                ext = "mp4"
+            audio = _AudioSegment.from_file(io.BytesIO(audio_bytes), format=ext)
+            return len(audio) / 1000
+        except Exception:
             return 0.0
-        
-        ext = Path(filename).suffix.lower().lstrip(".")
-        if ext == "m4a":
-            ext = "mp4"
-        
-        audio = AudioSegment.from_file(io.BytesIO(audio_bytes), format=ext)
-        return len(audio) / 1000
 
 
 # =========================
