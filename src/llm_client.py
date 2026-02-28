@@ -8,28 +8,35 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# ============== ĐỌC API KEY (Streamlit Cloud secrets ĐẦU, rồi .env) ==============
+# ============== ĐỌC API KEY (lazy — đọc lúc khởi tạo, không phải lúc import) ==============
 def _get_api_key() -> str:
+    """Đọc GROQ_API_KEY từ Streamlit secrets (Cloud) hoặc .env (local)."""
+    key = ""
+    # 1. Thử Streamlit secrets (chạy trên Streamlit Cloud)
     try:
         import streamlit as st
-        return st.secrets.get("GROQ_API_KEY", "") or os.getenv("GROQ_API_KEY", "")
+        key = st.secrets.get("GROQ_API_KEY", "")
     except Exception:
-        return os.getenv("GROQ_API_KEY", "")
-
-API_KEY = _get_api_key()
+        pass
+    # 2. Fallback về biến môi trường / .env
+    if not key:
+        key = os.getenv("GROQ_API_KEY", "")
+    return key
 
 
 class LLMClient:
     """Client for interacting with Groq LLM API."""
     
     def __init__(self, api_key: Optional[str] = None, default_model: str = "llama-3.1-8b-instant"):
-        self.api_key = api_key or API_KEY
+        self.api_key = api_key or _get_api_key()   # lazy — đọc tại đây, không phải lúc import
         self.default_model = default_model
         self._client = None
         
         if not self.api_key:
             raise RuntimeError(
-                "Missing GROQ_API_KEY. Please set API_KEY in llm_client.py"
+                "Missing GROQ_API_KEY. "
+                "Trên Streamlit Cloud: vào Settings → Secrets → thêm GROQ_API_KEY. "
+                "Local: thêm GROQ_API_KEY vào file .env"
             )
     
     @property

@@ -33,15 +33,21 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# API Key — ưu tiên Streamlit secrets (Cloud), fallback về .env (local)
+# API Key — đọc lazy tại lúc khởi tạo object, không phải lúc import module
 def _get_groq_key() -> str:
+    """Đọc GROQ_API_KEY từ Streamlit secrets (Cloud) hoặc .env (local)."""
+    key = ""
     try:
         import streamlit as st
-        return st.secrets.get("GROQ_API_KEY", "") or os.getenv("GROQ_API_KEY", "")
+        key = st.secrets.get("GROQ_API_KEY", "")
     except Exception:
-        return os.getenv("GROQ_API_KEY", "")
+        pass
+    if not key:
+        key = os.getenv("GROQ_API_KEY", "")
+    return key
 
-GROQ_API_KEY = _get_groq_key()
+# Không đọc key ở module level nữa để tránh lỗi khi Streamlit context chưa sẵn sàng
+GROQ_API_KEY = ""  # sẽ được override trong SpeechToText.__init__
 
 # Model Whisper tốt nhất của Groq (học từ groq_whisperer)
 WHISPER_MODEL = "whisper-large-v3"
@@ -79,7 +85,7 @@ class SpeechToText:
             language: Ngôn ngữ (mặc định: vi - tiếng Việt)
             prompt: Context prompt để cải thiện accuracy
         """
-        self.api_key = api_key or GROQ_API_KEY
+        self.api_key = api_key or _get_groq_key()   # lazy — đọc tại đây, không phải lúc import
         self.model = model
         self.language = language
         self.prompt = prompt
