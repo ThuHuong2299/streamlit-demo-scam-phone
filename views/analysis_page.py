@@ -310,11 +310,11 @@ def render_analysis():
         </script>
       </div>
       <div class="advice-card">
-        <div class="poppins-title">💡 Lời khuyên</div>
+        <div class="poppins-title">Lời khuyên</div>
         <div class="advice-scroll">
           <div class="advice-box">
             <div class="advice-warning">
-              <span class="advice-warning-icon">⚠️</span>
+              <span class="advice-warning-icon"></span>
               <span class="advice-warning-txt">{advice_warning}</span>
             </div>
             <div class="advice-bullets">{bullets_html(advice_bullets)}</div>

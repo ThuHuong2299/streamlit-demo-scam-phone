@@ -71,7 +71,7 @@ def build_line_chart_html(chunk_scores: List[Dict]) -> str:
         return (
             '<div style="display:flex;align-items:center;justify-content:center;'
             'height:128px;color:#9b9797;font-size:13px;font-family:Poppins,sans-serif;">'
-            '⏳ Chưa có dữ liệu — đang phân tích...</div>'
+            'Chua co du lieu — dang phan tich...</div>'
         )
 
     coords     = _coords(chunk_scores)
@@ -232,7 +232,7 @@ def build_line_chart_html(chunk_scores: List[Dict]) -> str:
         '<div style="font-weight:700;color:' + d.color + ';margin-bottom:3px;">' +
           d.time + ' &nbsp;' + d.pct +
         '</div>' +
-        (d.loai !== '—' ? '<div style="color:#94a3b8;font-size:11px;">📌 ' + d.loai + '</div>' : '') +
+        (d.loai !== '—' ? '<div style="color:#94a3b8;font-size:11px;">' + d.loai + '</div>' : '') +
         (d.text ? '<div style="margin-top:4px;color:#e2e8f0;font-size:11px;">' + d.text + '</div>' : '');
       tip.style.display = 'block';
       var tipW = tip.offsetWidth, tipH = tip.offsetHeight;

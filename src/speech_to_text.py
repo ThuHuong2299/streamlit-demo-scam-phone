@@ -136,7 +136,7 @@ class SpeechToText:
                 )
             return transcription
         except Exception as e:
-            print(f"❌ Lỗi transcribe: {e}")
+            print(f"[LOI] Loi transcribe: {e}")
             return ""
     
     def transcribe_bytes(
@@ -168,7 +168,7 @@ class SpeechToText:
             )
             return transcription
         except Exception as e:
-            print(f"❌ Lỗi transcribe bytes: {e}")
+            print(f"[LOI] Loi transcribe bytes: {e}")
             return ""
     
     def transcribe_chunks_generator(
@@ -377,10 +377,10 @@ def transcribe_streaming(
 
 if __name__ == "__main__":
     # Test basic transcription
-    print("🎤 Speech-to-Text Module")
+    print("Speech-to-Text Module")
     print(f"   Model: {WHISPER_MODEL}")
     print(f"   Language: vi")
     print(f"   Chunk duration: {DEFAULT_CHUNK_DURATION}s")
     
     stt = SpeechToText()
-    print(f"✅ Groq client initialized")
+    print("Groq client initialized")

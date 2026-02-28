@@ -106,7 +106,7 @@ Yêu cầu:
             content = response.choices[0].message.content.strip()
             return self._safe_json_load(content)
         except Exception as e:
-            print(f"⚠️ LLM extraction failed: {e}")
+            print(f"[WARN] LLM extraction failed: {e}")
             return {"keywords": [], "signals": [], "scammer_quote": ""}
     
     def explain_result(
@@ -178,7 +178,7 @@ TRANSCRIPT:
             result["loai_lua_dao"] = loai_lua_dao or []
             return result
         except Exception as e:
-            print(f"⚠️ LLM explanation failed: {e}")
+            print(f"[WARN] LLM explanation failed: {e}")
             return {
                 "summary": "Không thể tạo giải thích tự động.",
                 "reason": f"Điểm nghi ngờ: {ml_score:.0%}. Loại: {loai_text}",
