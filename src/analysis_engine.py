@@ -5,7 +5,7 @@ Pipeline phân tích chính: Audio → Transcript chunks → Keywords → Score 
 Luồng xử lý:
     uploaded_file (bytes)
         → SpeechToText.transcribe_chunks_from_bytes()   [chunk 10s]
-        → LLMClient.extract_keywords(chunk_text)
+        → _match_keywords_from_text()                   [quét keywords.json]
         → MultilabelPredictor.predict(keywords)
         → List[ChunkResult] lưu vào session_state["chunk_scores"]
 
@@ -26,18 +26,17 @@ from __future__ import annotations
 import json
 import math
 import re
+from collections import Counter
 import streamlit as st
 from pathlib import Path
 from typing import List, Dict
 
 from .speech_to_text import SpeechToText, DEFAULT_CHUNK_DURATION
-from .llm_client import LLMClient
 from .multilabel_predictor import MultilabelPredictor
 
 
 # ── Singleton instances (khởi tạo lazy, dùng chung trong session) ──────────
 _stt:         SpeechToText        | None = None
-_llm:         LLMClient           | None = None
 _predictor:   MultilabelPredictor | None = None
 _predefined_keywords: List[str]   | None = None
 
@@ -47,13 +46,6 @@ def _get_stt() -> SpeechToText:
     if _stt is None:
         _stt = SpeechToText()
     return _stt
-
-
-def _get_llm() -> LLMClient:
-    global _llm
-    if _llm is None:
-        _llm = LLMClient()
-    return _llm
 
 
 def _get_predictor() -> MultilabelPredictor:
@@ -112,7 +104,7 @@ def _fmt_time(sec: float) -> str:
     return f"{sec // 60:02d}:{sec % 60:02d}"
 
 
-def _score_chunk(text: str, llm: LLMClient, predictor: MultilabelPredictor) -> Dict:
+def _score_chunk(text: str, predictor: MultilabelPredictor) -> Dict:
     """
     Từ transcript text của 1 chunk → trả về keywords + diem + loai.
     Nếu text rỗng → trả về diem = 0.
@@ -166,7 +158,6 @@ def run_analysis(
         List[ChunkResult] — đã được lưu vào st.session_state["chunk_scores"]
     """
     stt       = _get_stt()
-    llm       = _get_llm()
     predictor = _get_predictor()
 
     chunk_scores: List[Dict] = []
@@ -199,7 +190,7 @@ def run_analysis(
             })
             continue
 
-        scored = _score_chunk(text, llm, predictor)
+        scored = _score_chunk(text, predictor)
 
         chunk_scores.append({
             "time_label": _fmt_time(start_sec),
@@ -250,7 +241,6 @@ def run_analysis(
     st.session_state["diem_nghi_ngo"] = diem_tong
 
     # Tổng hợp keywords toàn cuộc gọi với tần suất (dùng cho kw-card)
-    from collections import Counter
     all_kw: List[str] = []
     for c in chunk_scores:
         all_kw.extend(c["keywords"])

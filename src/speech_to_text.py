@@ -201,7 +201,6 @@ class SpeechToText:
         
         # Load audio
         audio = AudioSegment.from_file(audio_path)
-        total_duration = len(audio) / 1000  # milliseconds to seconds
         chunk_ms = chunk_duration * 1000
         
         chunk_index = 0
@@ -267,7 +266,6 @@ class SpeechToText:
         
         # Load audio from bytes
         audio = _AudioSegment.from_file(io.BytesIO(audio_bytes), format=ext)
-        total_duration = len(audio) / 1000
         chunk_ms = chunk_duration * 1000
         
         chunk_index = 0
