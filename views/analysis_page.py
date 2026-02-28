@@ -233,7 +233,15 @@ def render_analysis():
       </div>
       <script>
         function goHome() {{
-          window.parent.postMessage({{type: "go_home"}}, "*");
+          try {{
+            // allow-same-origin sandbox → truy cập trực tiếp parent location
+            var url = new URL(window.parent.location.href);
+            url.searchParams.set("go_home", "1");
+            window.parent.location.href = url.toString();
+          }} catch(e) {{
+            // fallback: reload trang hiện tại với param go_home
+            window.location.href = window.location.origin + window.location.pathname + "?go_home=1";
+          }}
         }}
       </script>
       <div class="fname">{filename}</div>
@@ -335,25 +343,3 @@ def render_analysis():
 """
 
     st.components.v1.html(html, height=900, scrolling=True)
-
-    # Lắng nghe postMessage từ iframe → dùng query_params để trigger rerun
-    st.markdown("""
-    <script>
-      window.addEventListener("message", function(e) {
-        if (e.data && e.data.type === "go_home") {
-          // Đặt query param để Streamlit rerun detect
-          var url = new URL(window.location.href);
-          url.searchParams.set("go_home", "1");
-          window.location.href = url.toString();
-        }
-      });
-    </script>
-    """, unsafe_allow_html=True)
-
-    if st.query_params.get("go_home") == "1":
-        st.query_params.clear()
-        clear_upload_state()
-        for key in ("chunk_scores", "diem_nghi_ngo", "keywords_count"):
-            st.session_state.pop(key, None)
-        st.session_state["page"] = "home"
-        st.rerun()

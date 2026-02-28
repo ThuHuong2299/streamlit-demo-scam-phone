@@ -19,6 +19,7 @@ if APP_DIR not in sys.path:
 
 from views.home_page     import render_home
 from views.analysis_page import render_analysis
+from src.upload_handler  import clear_upload_state
 
 # ── Cấu hình trang ────────────────────────────────────────────────────────
 st.set_page_config(
@@ -41,6 +42,15 @@ st.markdown("""
 # ── Session state mặc định ────────────────────────────────────────────────
 st.session_state.setdefault("page", "home")
 st.session_state.setdefault("filename", "")
+
+# ── Xử lý go_home query param (từ nút Home trong analysis page) ───────────
+if st.query_params.get("go_home") == "1":
+    st.query_params.clear()
+    clear_upload_state()
+    for key in ("chunk_scores", "diem_nghi_ngo", "keywords_count"):
+        st.session_state.pop(key, None)
+    st.session_state["page"] = "home"
+    st.rerun()
 
 # ── Router ────────────────────────────────────────────────────────────────
 if st.session_state.page == "home":
