@@ -5,7 +5,7 @@
 ![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.28%2B-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
 ![Groq](https://img.shields.io/badge/Groq-LLaMA%203.1%20%7C%20Whisper-F55036?style=for-the-badge)
-![XGBoost](https://img.shields.io/badge/XGBoost-2.0%2B-337AB7?style=for-the-badge)
+![Ensemble](https://img.shields.io/badge/Ensemble-RF%20%7C%20XGB%20%7C%20DT-337AB7?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
 Ứng dụng web sử dụng AI để phân tích file âm thanh cuộc gọi điện thoại,
@@ -45,7 +45,7 @@ tự động phát hiện và phân loại **14 loại lừa đảo** phổ bi�
 
 1. **Chuyển đổi giọng nói → văn bản** bằng Groq Whisper API, chia theo từng đoạn 10 giây.
 2. **Trích xuất đặc trưng ngôn ngữ** — từ khóa đáng ngờ, tín hiệu hành vi — thông qua LLaMA 3.1.
-3. **Phân loại lừa đảo** vào 1 trong 14 nhóm thật sự bằng mô hình XGBoost đã huấn luyện.
+3. **Phân loại lừa đảo** vào 1 trong 14 nhóm bằng Weighted Ensemble (Random Forest + XGBoost + Decision Tree) với ngưỡng Adaptive Fβ tối ưu theo từng lớp.
 4. **Trực quan hóa** điểm nghi ngờ theo trục thời gian và sinh cảnh báo cụ thể cho người dùng.
 
 ---
@@ -57,7 +57,7 @@ tự động phát hiện và phân loại **14 loại lừa đảo** phổ bi�
 | 🎙️ **Tải file âm thanh** | Hỗ trợ MP3, WAV, M4A, OGG, MP4 — tối đa 200 MB |
 | 📝 **Speech-to-Text** | Groq Whisper `whisper-large-v3`, tiếng Việt, chia chunk 10 giây |
 | 🔍 **Trích xuất từ khóa** | LLaMA 3.1-8B-Instant phát hiện từ khóa, tín hiệu đe dọa, trích dẫn đáng ngờ |
-| 🤖 **Phân loại lừa đảo** | TF-IDF + XGBoost đa nhãn, 14 loại lừa đảo thực tế |
+| 🤖 **Phân loại lừa đảo** | TF-IDF + Weighted Ensemble (RF + XGBoost + Decision Tree), 14 loại lừa đảo thực tế |
 | 📊 **Biểu đồ điểm nghi ngờ** | Đường SVG hiển thị điểm 0–1 theo từng đoạn 10 giây |
 | ⚠️ **Cảnh báo thông minh** | LLM tự sinh cảnh báo và lời khuyên cụ thể theo loại lừa đảo |
 | 🎨 **Giao diện tùy chỉnh** | HTML/CSS hoàn toàn tùy biến, ẩn toàn bộ chrome mặc định của Streamlit |
@@ -87,11 +87,12 @@ tự động phát hiện và phân loại **14 loại lừa đảo** phổ bi�
            │  chunk 10 giây  │  │  trích xuất từ khóa/tín hiệu │
            └─────────────────┘  └───────┬─────────────────────┘
                                         │
-                       ┌────────────────▼────────────────┐
-                       │      MultilabelPredictor         │
-                       │  TF-IDF + XGBoost (14 nhãn)     │
-                       │  Ngưỡng cảnh báo: 0.40          │
-                       └─────────────────────────────────┘
+                       ┌────────────────▼────────────────────────────────┐
+                       │            MultilabelPredictor                  │
+                       │  TF-IDF + Weighted Ensemble (14 nhãn)           │
+                       │  RF (0.45) + XGBoost (0.40) + DTree (0.15)     │
+                       │  OOF 5-Fold + Adaptive Fβ threshold per-class  │
+                       └─────────────────────────────────────────────────┘
 ```
 
 Mỗi đoạn 10 giây tạo ra một `ChunkResult` với cấu trúc:
@@ -116,7 +117,7 @@ Mỗi đoạn 10 giây tạo ra một `ChunkResult` với cấu trúc:
 |---|---|
 | Web Framework | [Streamlit](https://streamlit.io/) ≥ 1.28 |
 | LLM / STT API | [Groq](https://console.groq.com/) — LLaMA 3.1-8B-Instant + Whisper Large v3 |
-| Machine Learning | [XGBoost](https://xgboost.readthedocs.io/) ≥ 2.0, [scikit-learn](https://scikit-learn.org/) ≥ 1.3 |
+| Machine Learning | [scikit-learn](https://scikit-learn.org/) ≥ 1.3 (RandomForest, DecisionTree), [XGBoost](https://xgboost.readthedocs.io/) ≥ 2.0, [imbalanced-learn](https://imbalanced-learn.org/) (SMOTE) |
 | Xử lý dữ liệu | [pandas](https://pandas.pydata.org/) ≥ 2.0, [NumPy](https://numpy.org/) ≥ 1.24 |
 | Xử lý âm thanh | [pydub](https://github.com/jiaaro/pydub) ≥ 0.25 + FFmpeg |
 | Lưu mô hình | [joblib](https://joblib.readthedocs.io/) ≥ 1.3 |
@@ -247,25 +248,42 @@ call-fraud-detection/
 
 ### Bộ Phân Loại Đa Nhãn
 
-Bộ phân loại cốt lõi là **Mô hình 2** (`mo_hinh_da_lop.pkl`), được huấn luyện trên tập transcript cuộc gọi lừa đảo tiếng Việt có nhãn thật.
+Bộ phân loại cốt lõi là **Mô hình 2** (`mo_hinh_da_lop.pkl`), được huấn luyện trên tập transcript cuộc gọi lừa đảo tiếng Việt có nhãn thật bằng kiến trúc **Weighted Ensemble + OOF 5-Fold**.
 
 | Thành phần | Chi tiết |
 |---|---|
-| Vector hóa | TF-IDF (`tfidf_vectorizer_v2.pkl`), tiếng Việt, n-gram (1–2) |
-| Bộ phân loại | XGBoost (`XGBClassifier`), bọc trong `MulticlassAsBinary` cho mỗi nhãn |
-| Ngưỡng cảnh báo | **0.40** (thay đổi tại `config/settings.py` → `NGUONG_CANH_BAO`) |
+| Vector hóa | TF-IDF (`tfidf_vectorizer_v2.pkl`), n-gram (1–2), max_features=1500, sublinear_tf |
+| Thuật toán 1 | `RandomForestClassifier` — trọng số **0.45** |
+| Thuật toán 2 | `XGBClassifier` — trọng số **0.40** |
+| Thuật toán 3 | `DecisionTreeClassifier` — trọng số **0.15** |
+| Kiến trúc ensemble | Weighted average xác suất từ 3 model, one-vs-all qua `MulticlassAsBinary` |
+| Đánh giá | OOF 5-Fold (Out-of-Fold) trên toàn bộ dữ liệu |
+| Cân bằng dữ liệu | SMOTE (k tự động theo support từng fold) |
+| Ngưỡng | Adaptive Fβ per-class (β = 1.5–2.5 tuỳ support; floor 0.08–0.12) |
+| Ngưỡng deploy | **0.40** (thay đổi tại `config/settings.py` → `NGUONG_CANH_BAO`) |
 | Số từ khóa tối thiểu | Cần ít nhất 3 từ khóa để kích hoạt dự đoán |
 | Notebook huấn luyện | `Mo_hinh_2_Phan_loai_Da_lop_Nhi_phan.ipynb` |
 
 #### Wrapper `MulticlassAsBinary`
 
-Lớp bọc mỏng trích xuất xác suất nhị phân cho một nhãn duy nhất từ mô hình đa lớp, cho phép một mô hình XGBoost thực hiện 14 quyết định nhị phân độc lập:
+Lớp bọc mỏng trích xuất xác suất nhị phân của **từng lớp riêng lẻ** từ mô hình đa lớp, cho phép cả 3 thuật toán (RF, XGB, DT) thực hiện 14 quyết định nhị phân độc lập rồi lấy trung bình có trọng số:
 
 ```python
 class MulticlassAsBinary:
     def __init__(self, model, class_idx): ...
     def predict_proba(self, X) -> np.ndarray: ...  # shape (n, 2)
     def predict(self, X) -> np.ndarray: ...         # shape (n,) — 0 hoặc 1
+```
+
+#### Sơ đồ Weighted Ensemble
+
+```
+TF-IDF(text) → X
+     │
+     ├─► RandomForestClassifier  ×0.45 ─┐
+     ├─► XGBClassifier           ×0.40 ─┼─► avg xác suất → Adaptive Fβ threshold → nhãn 0/1
+     └─► DecisionTreeClassifier  ×0.15 ─┘
+                                         × 14 lớp (one-vs-all via MulticlassAsBinary)
 ```
 
 ### 14 Loại Lừa Đảo
