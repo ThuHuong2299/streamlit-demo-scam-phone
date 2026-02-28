@@ -1,0 +1,122 @@
+===================================================================
+KỊCH BẢN HỘI THOẠI DEMO – GIẢ MẠO LÀ CÔNG AN
+Chủ đề : Kẻ gian mạo danh cán bộ cảnh sát điều tra vụ rửa tiền /
+          ma tuý, ép nạn nhân cung cấp thông tin ngân hàng và
+          chuyển tiền để "phong toả – bảo vệ tài sản".
+Mục đích: Demo hệ thống phát hiện lừa đảo – độ nghi ngờ mục tiêu ≥80 %
+===================================================================
+
+[Đoạn 1 – 00:00–00:25]
+Kẻ lừa đảo (giọng lạnh, thẳng vào việc ngay):
+"Alo! Chị có phải Trần Thị Lan, sinh năm 88, ngụ quận Bình
+Thạnh không?
+
+Nạn nhân: Vâng, đúng rồi ạ. Cho hỏi anh là ai vậy?
+
+Kẻ lừa đảo: "Tôi là thượng úy Minh, phòng cảnh sát điều tra –
+công an tỉnh. Chị có phải Trần Thị Lan, sinh năm 88, ngụ quận Bình
+Thạnh không?"
+
+Nạn nhân (giật mình):
+"Dạ… đúng rồi, có chuyện gì vậy anh?"
+
+---
+
+[Đoạn 2 – 00:25–01:00]
+Kẻ lừa đảo (ngắt lời, không để nạn nhân hỏi thêm):
+"Chị nghe rõ tôi nói này. Tài khoản ngân hàng đứng tên chị vừa bị
+hệ thống Bộ Công an gắn cờ bất thường – liên quan trực tiếp đến một
+đường dây rửa tiền và ma túy đang bị điều tra. Vụ này cảnh sát đã
+theo từ mấy tháng nay rồi, hồ sơ có đủ hết. Chị không biết thì tôi
+nói cho biết chứ không phải tôi hỏi ý kiến chị."
+
+Nạn nhân (hoảng loạn):
+"Ủa trời ơi anh ơi, tôi có biết gì đâu, tôi không làm gì hết—"
+
+---
+
+[Đoạn 3 – 01:00–01:40]
+Kẻ lừa đảo (cắt ngang):
+"Chị im để tôi nói. Bây giờ có hai hướng. Một là chị hợp tác với
+cán bộ, cung cấp thông tin cá nhân, số căn cước, số tài khoản ngân
+hàng để chúng tôi xác minh danh tính, chứng minh chị không liên quan.
+Hai là chị không hợp tác, chúng tôi ra lệnh niêm phong tài khoản và
+tài sản ngay hôm nay, rồi mời chị lên làm việc trực tiếp. Chị chọn
+hướng nào?"
+
+Nạn nhân:
+"Dạ… thì tôi muốn hợp tác chứ anh. Nhưng anh cho tôi biết mã số cán
+bộ hay số điện thoại phòng ban để tôi kiểm tra lại được không?"
+
+---
+
+[Đoạn 4 – 01:40–02:20]
+Kẻ lừa đảo (giọng đanh lại, bắt đầu đe dọa):
+"Chị vừa cản trở điều tra đó biết không? Đây là vụ án đang trong
+giai đoạn bí mật, tôi không có trách nhiệm xác minh gì với chị hết.
+Chị mà gọi cho ai – chồng, con, ai hết – tôi coi như chị đang thông
+báo cho đồng phạm, lúc đó hậu quả pháp lý nặng hơn nhiều. Thời hạn
+chúng tôi cho chị là 20 phút. Quá giờ là tôi phát lệnh tạm giam,
+không thương lượng."
+
+Nạn nhân (giọng run):
+"Thôi thôi… tôi hợp tác, anh nói tôi cần làm gì?"
+
+---
+
+[Đoạn 5 – 02:20–03:00]
+Kẻ lừa đảo:
+"Được. Chị đọc cho tôi nghe số căn cước công dân, họ tên đúng trên
+tài khoản, rồi số tài khoản ngân hàng chị đang dùng. Sau đó chị
+chuyển hết số dư hiện tại sang tài khoản nội bộ của cơ quan. Đây là
+tài khoản công an dùng để giám sát, kiểm soát dòng tiền – xong vụ
+điều tra thì chị nhận lại đủ. Thủ tục này là bắt buộc để chứng minh
+chị không dính rửa tiền. Chị rõ chưa?"
+
+Nạn nhân:
+"Nhưng… chuyển tiền xong thì tôi có chắc lấy lại không anh?"
+
+---
+
+[Đoạn 6 – 03:00–03:40]
+Kẻ lừa đảo (giọng bực bội, tăng áp lực):
+"Chị hỏi cái gì vậy? Cơ quan nhà nước chứ có phải chỗ nào đâu mà
+chị nghi. Tôi nói rồi, tài khoản đó công an giám sát, tài sản của
+chị vẫn an toàn. Chị không tin thì thôi, tôi chuyển máy cho trưởng
+phòng, chị nói chuyện trực tiếp. Lúc đó chị tự chịu trách nhiệm với
+mọi hậu quả, tôi không can thiệp được nữa. Danh sách khởi tố tôi đã
+có trong tay rồi, chị không nên để tên mình vào đó."
+
+---
+
+[Đoạn 7 – 03:40–04:15]
+"Trưởng phòng" (kẻ đồng bọn, giọng già hơn, uy hơn):
+"Lan đó hả? Tôi Thành, trưởng phòng. Tình hình vụ này nghiêm trọng
+lắm, ma túy xuyên quốc gia, không phải chuyện nhỏ. Cán bộ Minh đã
+báo cáo chị chưa rõ tình huống nên tôi nói thẳng: chị hợp tác ngay
+bây giờ, cung cấp đủ thông tin, chuyển tiền sang tài khoản chúng tôi
+chỉ định – điều tra xong trả lại hết. Còn không thì 15 phút nữa lệnh
+tạm giam ký xong, chị tự lo. Chị quyết định đi."
+
+Nạn nhân (gần như khóc):
+"Dạ… tôi làm theo, tôi làm theo hết."
+
+===================================================================
+GHI CHÚ KỸ THUẬT – Từ khoá đặc trưng xuất hiện trong hội thoại:
+
+[Giả mạo là công an]
+công an · cảnh sát · thượng úy · cán bộ · điều tra · rửa tiền ·
+ma túy · căn cước · tài khoản · ngân hàng · tài sản · bí mật ·
+hợp tác · khẩn cấp · giấy tờ · thông tin cá nhân · kiểm tra ·
+danh tính · họ tên · số · chuyển máy · xử lý · không · bộ ·
+liên quan · tạm giam · giám sát
+
+[Lừa đảo đe dọa]
+hậu quả · vi phạm · rủi ro · áp lực · thời hạn · uy tín ·
+pháp lý · trách nhiệm · danh sách · xử phạt · giải trình ·
+kiểm soát · công khai · im lặng · kích hoạt
+
+[Lừa đảo tài chính – ngân hàng]
+giao dịch · ngân hàng · tài khoản · khóa · xác minh ·
+bất thường · điều tra · chuyển · ngay · yêu cầu
+===================================================================

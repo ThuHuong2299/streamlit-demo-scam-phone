@@ -1,0 +1,32 @@
+# requirements.txt
+# Phân tích cuộc gọi lừa đảo - 2 Mô hình ML
+
+# Web framework
+streamlit>=1.28.0
+
+# Environment management
+python-dotenv>=1.0.0
+
+# LLM API
+groq>=0.9.0  # Phiên bản mới hơn, hỗ trợ Whisper API tốt hơn
+
+# Data processing
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Machine Learning
+scikit-learn>=1.3.0
+xgboost>=2.0.0
+joblib>=1.3.0
+
+# ========================================
+# AUDIO PROCESSING (học từ groq_whisperer)
+# ========================================
+
+# Speech-to-Text dependencies
+pydub>=0.25.0       # Chia audio thành chunks, convert formats
+
+# FFmpeg cần được cài riêng:
+# - Windows: choco install ffmpeg HOẶC download từ https://ffmpeg.org/
+# - Ubuntu: sudo apt install ffmpeg
+# - macOS: brew install ffmpeg

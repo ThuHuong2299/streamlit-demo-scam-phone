@@ -1,0 +1,51 @@
+{
+  "LOAI_TO_ID": {
+    "Giả danh cơ sở giáo dục": 0,
+    "Giả danh nhân viên bảo hiểm": 1,
+    "Giả mạo cơ quan xuất khẩu lao động": 2,
+    "Giả mạo cục viễn thông": 3,
+    "Giả mạo là công an": 4,
+    "Giả mạo người giao hàng": 5,
+    "Giả mạo nhà tuyển dụng": 6,
+    "Giả mạo đại sứ quán": 7,
+    "Lừa đảo liên quan sức khỏe": 8,
+    "Lừa đảo ngoại tình": 9,
+    "Lừa đảo phí điện nước": 10,
+    "Lừa đảo quà tặng": 11,
+    "Lừa đảo tài chính – ngân hàng": 12,
+    "Lừa đảo đe dọa": 13
+  },
+  "ID_TO_LOAI": {
+    "0": "Giả danh cơ sở giáo dục",
+    "1": "Giả danh nhân viên bảo hiểm",
+    "2": "Giả mạo cơ quan xuất khẩu lao động",
+    "3": "Giả mạo cục viễn thông",
+    "4": "Giả mạo là công an",
+    "5": "Giả mạo người giao hàng",
+    "6": "Giả mạo nhà tuyển dụng",
+    "7": "Giả mạo đại sứ quán",
+    "8": "Lừa đảo liên quan sức khỏe",
+    "9": "Lừa đảo ngoại tình",
+    "10": "Lừa đảo phí điện nước",
+    "11": "Lừa đảo quà tặng",
+    "12": "Lừa đảo tài chính – ngân hàng",
+    "13": "Lừa đảo đe dọa"
+  },
+  "SO_LOAI": 14,
+  "DANH_SACH_LOAI": [
+    "Giả danh cơ sở giáo dục",
+    "Giả danh nhân viên bảo hiểm",
+    "Giả mạo cơ quan xuất khẩu lao động",
+    "Giả mạo cục viễn thông",
+    "Giả mạo là công an",
+    "Giả mạo người giao hàng",
+    "Giả mạo nhà tuyển dụng",
+    "Giả mạo đại sứ quán",
+    "Lừa đảo liên quan sức khỏe",
+    "Lừa đảo ngoại tình",
+    "Lừa đảo phí điện nước",
+    "Lừa đảo quà tặng",
+    "Lừa đảo tài chính – ngân hàng",
+    "Lừa đảo đe dọa"
+  ]
+}
