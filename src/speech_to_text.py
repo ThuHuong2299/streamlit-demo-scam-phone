@@ -17,7 +17,7 @@ from typing import Optional, List, Generator, Tuple
 try:
     from groq import Groq
     GROQ_AVAILABLE = True
-except ImportError:
+except Exception:
     Groq = None
     GROQ_AVAILABLE = False
 
@@ -25,7 +25,7 @@ except ImportError:
 try:
     from pydub import AudioSegment
     PYDUB_AVAILABLE = True
-except ImportError:
+except Exception:
     PYDUB_AVAILABLE = False
 
 # CẤU HÌNH
