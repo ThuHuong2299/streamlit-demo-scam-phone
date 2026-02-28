@@ -8,8 +8,15 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# ============== CẤU HÌNH API KEY ==============
-API_KEY = os.getenv("GROQ_API_KEY", "")
+# ============== ĐỌC API KEY (Streamlit Cloud secrets ĐẦU, rồi .env) ==============
+def _get_api_key() -> str:
+    try:
+        import streamlit as st
+        return st.secrets.get("GROQ_API_KEY", "") or os.getenv("GROQ_API_KEY", "")
+    except Exception:
+        return os.getenv("GROQ_API_KEY", "")
+
+API_KEY = _get_api_key()
 
 
 class LLMClient:

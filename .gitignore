@@ -42,6 +42,9 @@ wheels/
 .DS_Store
 Thumbs.db
 
+# Streamlit secrets (không commit key thật)
+.streamlit/secrets.toml
+
 # Project specific
 models/*.pkl
 models/*.metrics.json

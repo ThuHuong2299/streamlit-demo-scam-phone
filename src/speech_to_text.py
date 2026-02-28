@@ -33,8 +33,15 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# API Key — đọc từ biến môi trường .env
-GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
+# API Key — ưu tiên Streamlit secrets (Cloud), fallback về .env (local)
+def _get_groq_key() -> str:
+    try:
+        import streamlit as st
+        return st.secrets.get("GROQ_API_KEY", "") or os.getenv("GROQ_API_KEY", "")
+    except Exception:
+        return os.getenv("GROQ_API_KEY", "")
+
+GROQ_API_KEY = _get_groq_key()
 
 # Model Whisper tốt nhất của Groq (học từ groq_whisperer)
 WHISPER_MODEL = "whisper-large-v3"
