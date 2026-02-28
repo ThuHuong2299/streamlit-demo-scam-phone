@@ -12,6 +12,7 @@ import io
 import tempfile
 from pathlib import Path
 from typing import Optional, List, Generator, Tuple
+from .llm_client import _get_api_key
 try:
     from groq import Groq
     GROQ_AVAILABLE = True
@@ -27,22 +28,6 @@ except Exception:
     PYDUB_AVAILABLE = False
 
 # Groq client — import ở đây để property client() có thể dùng trực tiếp
-
-# API Key — đọc lazy tại lúc khởi tạo object, không phải lúc import module
-def _get_groq_key() -> str:
-    """Đọc GROQ_API_KEY từ Streamlit secrets (Cloud) hoặc .env (local)."""
-    key = ""
-    try:
-        import streamlit as st
-        key = st.secrets.get("GROQ_API_KEY", "")
-    except Exception:
-        pass
-    if not key:
-        key = os.getenv("GROQ_API_KEY", "")
-    return key
-
-# Không đọc key ở module level nữa để tránh lỗi khi Streamlit context chưa sẵn sàng
-GROQ_API_KEY = ""  # sẽ được override trong SpeechToText.__init__
 
 # Model Whisper tốt nhất của Groq (học từ groq_whisperer)
 WHISPER_MODEL = "whisper-large-v3"
@@ -80,7 +65,7 @@ class SpeechToText:
             language: Ngôn ngữ (mặc định: vi - tiếng Việt)
             prompt: Context prompt để cải thiện accuracy
         """
-        self.api_key = api_key or _get_groq_key()   # lazy — đọc tại đây, không phải lúc import
+        self.api_key = api_key or _get_api_key()   # lazy — đọc tại đây, không phải lúc import
         self.model = model
         self.language = language
         self.prompt = prompt

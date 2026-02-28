@@ -186,37 +186,6 @@ TRANSCRIPT:
                 "loai_lua_dao": loai_lua_dao or []
             }
 
-
-# Backward compatibility - keep old function names
-_default_client = None
-
-def get_client() -> LLMClient:
-    global _default_client
-    if _default_client is None:
-        _default_client = LLMClient()
-    return _default_client
-
-def extract_keywords(transcript: str, model: str = "llama-3.1-8b-instant") -> Dict:
-    """Legacy function for backward compatibility."""
-    return get_client().extract_keywords(transcript, model)
-
-def explain_result(
-    transcript: str,
-    ml_score: float,
-    label: str,
-    keywords: list,
-    signals: list,
-    scammer_quote: str = "",
-    loai_lua_dao: list = None,
-    model: str = "llama-3.1-8b-instant",
-) -> Dict:
-    """Legacy function for backward compatibility."""
-    return get_client().explain_result(
-        transcript, ml_score, label, keywords, signals, scammer_quote,
-        loai_lua_dao, model
-    )
-
-
 if __name__ == "__main__":
     # Test the LLM client
     client = LLMClient()
