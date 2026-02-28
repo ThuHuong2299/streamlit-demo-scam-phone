@@ -1,17 +1,17 @@
+﻿<div align="center">
+
 # 📞 Hệ Thống Phát Hiện Cuộc Gọi Lừa Đảo
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white" />
-  <img src="https://img.shields.io/badge/Streamlit-1.28%2B-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white" />
-  <img src="https://img.shields.io/badge/Groq-LLaMA%203.1%20%7C%20Whisper-F55036?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/XGBoost-2.0%2B-337AB7?style=for-the-badge" />
-  <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" />
-</p>
+![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Streamlit](https://img.shields.io/badge/Streamlit-1.28%2B-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
+![Groq](https://img.shields.io/badge/Groq-LLaMA%203.1%20%7C%20Whisper-F55036?style=for-the-badge)
+![XGBoost](https://img.shields.io/badge/XGBoost-2.0%2B-337AB7?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-<p align="center">
-  Ứng dụng web sử dụng AI để phân tích file âm thanh cuộc gọi điện thoại,<br/>
-  tự động phát hiện và phân loại <strong>14 loại lừa đảo</strong> phổ biến tại Việt Nam theo thời gian thực.
-</p>
+Ứng dụng web sử dụng AI để phân tích file âm thanh cuộc gọi điện thoại,
+tự động phát hiện và phân loại **14 loại lừa đảo** phổ biến tại Việt Nam theo thời gian thực.
+
+</div>
 
 ---
 
@@ -385,8 +385,9 @@ Dự án được cấp phép theo **MIT License** — xem file [LICENSE](LICENS
 
 ---
 
-<p align="center">
-  Được xây dựng với ❤️ vì cộng đồng Việt Nam — <i>Bảo vệ người dùng khỏi lừa đảo qua điện thoại</i>
-</p>
-#   s t r e a m l i t - d e m o - s c a m - p h o n e  
- 
+
+<div align="center">
+
+Được xây dựng với ❤️ vì cộng đồng Việt Nam — *Bảo vệ người dùng khỏi lừa đảo qua điện thoại*
+
+</div>
