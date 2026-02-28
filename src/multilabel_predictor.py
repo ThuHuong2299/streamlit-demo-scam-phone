@@ -398,13 +398,6 @@ def predict_loai_lua_dao(text: str = "", keywords: List[str] = None) -> Dict:
     return predictor.predict(text=text, keywords=keywords)
 
 
-
-# ── Alias để tương thích ngược với các import cũ ─────────────────────────
-# Các module khác (kể cả __init__.py) import tên "predict_multilabel"
-# → trỏ thẳng sang predict_loai_lua_dao để không cần đổi tên ở nhiều chỗ.
-predict_multilabel = predict_loai_lua_dao
-
-
 if __name__ == "__main__":
     # Test
     predictor = MultilabelPredictor()

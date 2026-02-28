@@ -1,35 +1,14 @@
-# src/__init__.py
+﻿# src/__init__.py
 """
-Source modules cho Phân tích Lừa đảo Demo.
+Source modules cho Phan tich Lua dao Demo.
 
 Modules:
-- multilabel_predictor: Mô hình - Multi-label Classification  
-- llm_client: Trích xuất từ khóa và giải thích kết quả
-- speech_to_text: Chuyển đổi audio thành text (Groq Whisper)
+- analysis_engine:       Pipeline chinh audio -> ket qua
+- multilabel_predictor:  Multi-label Classification
+- llm_client:            Trich xuat tu khoa va giai thich ket qua
+- speech_to_text:        Chuyen doi audio thanh text (Groq Whisper)
+- chart_builder:         Ve SVG line chart tu chunk_scores
+- loading_screen:        Loading overlay toan man hinh
+- upload_handler:        Validate va xu ly file upload
+- assets_loader:         Load icons/decorations duoi dang base64
 """
-
-from .multilabel_predictor import predict_multilabel
-from .llm_client import extract_keywords, explain_result
-from .analysis_engine import run_analysis, get_chunk_scores, is_analysis_done
-from .chart_builder import build_line_chart_html
-from .speech_to_text import (
-    SpeechToText,
-    transcribe_audio,
-    transcribe_audio_bytes,
-    transcribe_streaming,
-    get_stt_client,
-)
-
-__all__ = [
-    # Multi-label
-    "predict_multilabel",
-    # LLM
-    "extract_keywords",
-    "explain_result",
-    # Speech-to-Text
-    "SpeechToText",
-    "transcribe_audio",
-    "transcribe_audio_bytes",
-    "transcribe_streaming",
-    "get_stt_client",
-]

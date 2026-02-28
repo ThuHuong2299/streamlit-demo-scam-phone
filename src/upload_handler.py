@@ -7,13 +7,10 @@ Chức năng:
   - Các định dạng file được chấp nhận
   - Validate file (loại, kích thước)
   - Xử lý kết quả upload từ st.file_uploader
-  - Lưu uploaded file vào thư mục tạm (nếu cần)
   - Cập nhật session_state và điều hướng sang trang phân tích
 ────────────────────────────────────────────────────────────────
 """
 
-import os
-import tempfile
 import streamlit as st
 
 # ── Cấu hình ──────────────────────────────────────────────────────────────
@@ -76,25 +73,6 @@ def validate_uploaded_file(uploaded_file) -> tuple[bool, str]:
         )
 
     return True, ""
-
-
-def save_uploaded_file(uploaded_file, save_dir: str | None = None) -> str:
-    """
-    Lưu file upload ra đĩa (thư mục tạm hoặc save_dir chỉ định).
-
-    Returns:
-        Đường dẫn tuyệt đối đến file đã lưu.
-    """
-    if save_dir is None:
-        save_dir = tempfile.mkdtemp(prefix="cds_upload_")
-
-    os.makedirs(save_dir, exist_ok=True)
-    file_path = os.path.join(save_dir, uploaded_file.name)
-
-    with open(file_path, "wb") as f:
-        f.write(uploaded_file.getbuffer())
-
-    return file_path
 
 
 # ── API chính dùng trong app.py ────────────────────────────────────────────

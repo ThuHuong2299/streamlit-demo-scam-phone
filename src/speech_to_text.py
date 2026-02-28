@@ -12,8 +12,6 @@ import io
 import tempfile
 from pathlib import Path
 from typing import Optional, List, Generator, Tuple
-
-# Groq client — import ở đây để property client() có thể dùng trực tiếp
 try:
     from groq import Groq
     GROQ_AVAILABLE = True
@@ -28,10 +26,7 @@ try:
 except Exception:
     PYDUB_AVAILABLE = False
 
-# CẤU HÌNH
-from dotenv import load_dotenv
-
-load_dotenv()
+# Groq client — import ở đây để property client() có thể dùng trực tiếp
 
 # API Key — đọc lazy tại lúc khởi tạo object, không phải lúc import module
 def _get_groq_key() -> str:

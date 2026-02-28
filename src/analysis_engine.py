@@ -31,29 +31,11 @@ import streamlit as st
 from pathlib import Path
 from typing import List, Dict
 
-from .speech_to_text import SpeechToText, DEFAULT_CHUNK_DURATION
-from .multilabel_predictor import MultilabelPredictor
+from .speech_to_text import DEFAULT_CHUNK_DURATION, get_stt_client
+from .multilabel_predictor import MultilabelPredictor, get_multilabel_predictor
 
 
-# ── Singleton instances (khởi tạo lazy, dùng chung trong session) ──────────
-_stt:         SpeechToText        | None = None
-_predictor:   MultilabelPredictor | None = None
-_predefined_keywords: List[str]   | None = None
-
-
-def _get_stt() -> SpeechToText:
-    global _stt
-    if _stt is None:
-        _stt = SpeechToText()
-    return _stt
-
-
-def _get_predictor() -> MultilabelPredictor:
-    global _predictor
-    if _predictor is None:
-        _predictor = MultilabelPredictor()
-        _predictor.load_models()
-    return _predictor
+_predefined_keywords: List[str] | None = None
 
 
 def _load_predefined_keywords() -> List[str]:
@@ -157,8 +139,8 @@ def run_analysis(
     Returns:
         List[ChunkResult] — đã được lưu vào st.session_state["chunk_scores"]
     """
-    stt       = _get_stt()
-    predictor = _get_predictor()
+    stt       = get_stt_client()
+    predictor = get_multilabel_predictor()
 
     chunk_scores: List[Dict] = []
 

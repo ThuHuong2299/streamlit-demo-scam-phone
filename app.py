@@ -13,6 +13,12 @@ import os
 import sys
 import streamlit as st
 
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass  # trên Streamlit Cloud không cần .env
+
 APP_DIR = os.path.dirname(os.path.abspath(__file__))
 if APP_DIR not in sys.path:
     sys.path.insert(0, APP_DIR)

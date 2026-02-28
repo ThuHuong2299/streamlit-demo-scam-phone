@@ -4,9 +4,6 @@
 import os
 import json
 from typing import Dict, List, Optional
-from dotenv import load_dotenv
-
-load_dotenv()
 
 # ============== ĐỌC API KEY (lazy — đọc lúc khởi tạo, không phải lúc import) ==============
 def _get_api_key() -> str:
